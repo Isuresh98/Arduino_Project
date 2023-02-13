@@ -7,6 +7,7 @@ void setup() {
 }
 
 void loop() {
-  digitalWrite(2,HIGH);
+  digitalWrite(2,LOW);
+   digitalWrite(3,HIGH);
 
 }
