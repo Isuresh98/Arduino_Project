@@ -1,5 +1,4 @@
-
-
+int motorSpeed = 200; // initial motor speed
 
 void setup() {
 pinMode(2, OUTPUT); //1st motor
@@ -13,6 +12,7 @@ Serial.begin(9600); //Initialize serial communication
 void loop() {
 if (Serial.available()>0) { //Check if there is incoming data
 char command = Serial.read(); //Read the incoming data
+
 
 // execute the corresponding function based on the command
 switch (command) {
@@ -28,43 +28,46 @@ switch (command) {
   case 'r':
     right();
     break;
-     case 's':
+  case 's':
     stopm();
+    break;
+  case 'i':
+    increaseSpeed();
+    break;
+  case 'd':
+    decreaseSpeed();
     break;
   default:
     break;
 }
-
-
-
-}//if
-}//loop
+}
+}
 
 void forward() {
-digitalWrite(2, LOW);
-analogWrite(3, HIGH);
-digitalWrite(5, LOW);
-analogWrite(6, HIGH);
+analogWrite(2, motorSpeed);
+digitalWrite(3, HIGH);
+analogWrite(5, motorSpeed);
+digitalWrite(6, HIGH);
 }
 
 void backward() {
-analogWrite(2, HIGH);
-digitalWrite(3, LOW);
-analogWrite(5, HIGH);
-digitalWrite(6, LOW);
+digitalWrite(2, HIGH);
+analogWrite(3, motorSpeed);
+digitalWrite(5, HIGH);
+analogWrite(6, motorSpeed);
 }
 
 void left() {
-analogWrite(2, HIGH);
-digitalWrite(3, LOW);
+digitalWrite(2, HIGH);
+analogWrite(3, motorSpeed);
 digitalWrite(5, LOW);
-analogWrite(6, HIGH);
+analogWrite(6, motorSpeed);
 }
 
 void right() {
-digitalWrite(2, LOW);
-analogWrite(3, HIGH);
-analogWrite(5, HIGH);
+analogWrite(2, motorSpeed);
+digitalWrite(3, HIGH);
+analogWrite(5, motorSpeed);
 digitalWrite(6, LOW);
 }
 
@@ -73,4 +76,16 @@ digitalWrite(2, LOW);
 digitalWrite(3, LOW);
 digitalWrite(5, LOW);
 digitalWrite(6, LOW);
+}
+
+void increaseSpeed() {
+if (motorSpeed < 255) {
+motorSpeed += 25;
+}
+}
+
+void decreaseSpeed() {
+if (motorSpeed > 55) {
+motorSpeed -= 25;
+}
 }
